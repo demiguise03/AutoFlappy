@@ -4,13 +4,13 @@
 	<title>Auto Flappy</title>
 </head>
 <body>
-<canvas id ="myCanvas" width="600" height="400" style="border:1px solid #d3d3d3;"></canvas>
+<canvas id ="myCanvas" width="500" height="400" style="border:1px solid #d3d3d3;"></canvas>
 <script type="text/javascript">
 	var c = document.getElementById("myCanvas");
 	var ctx = c.getContext("2d");
 	
 	
-	var W=600;var H=400;
+	var W=500;var H=400;
 
 	ctx.fillStyle = "#FFFF00";
 	ctx.fillRect(0,0,W,H);
@@ -18,7 +18,7 @@
 	//intialize
 	var birdx=W/4,birdy=H/4,birdh=50,birdw=50,bspeedy=-2,gravity=0.2;//bird specifications
 
-	var obstaclew=100,ospeedx=-1,o1initpos=600,o2initpos=900,gap=150;
+	var obstaclew=100,ospeedx=-1,o1initpos=W,o2initpos=W+300,gap=150;
 
 	var obstacle1x = o1initpos,length1=0;
 
@@ -80,6 +80,7 @@
 		birdy=birdy+bspeedy;
 		bspeedy=bspeedy+gravity;
 		obstacle1x+=ospeedx;
+		obstacle2x+=ospeedx;
 
 		window.requestAnimationFrame(loop);
 	}
