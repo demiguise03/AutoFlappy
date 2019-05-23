@@ -16,13 +16,13 @@
 	ctx.fillRect(0,0,W,H);
 	
 	//intialize
-	var birdx=W/4,birdy=H/4,birdh=50,birdw=50,bspeedy=-7,gravity=0.4;//bird specifications
+	var birdx=W/4,birdy=H/4,birdh=40,birdw=40,bspeedy=-4,gravity=0.4;//bird specifications
 
 	var obstaclew=100,ospeedx=-5,gap=150;
 
-	var obstacle1x = W,length1=0;
+	var obstacle1x = 2*W,length1=0;
 
-	var obstacle2x = W+300,length2=0;
+	var obstacle2x = obstacle1x+300,length2=0;
 
 	var flag1=0,flag2=0;
 	var length=200;
@@ -35,7 +35,7 @@
 	{
 		var x=birdx+birdw;
 		var y=birdy+birdh;
-		if(y>=600 || birdy<=0)
+		if(y>=600)
 			return 1;
 		else if(x>=obstacle1x && birdy<= length1 && x<=(obstacle1x+obstaclew))
 			return 1;
@@ -59,9 +59,9 @@
 	}
 	function gameover()
 	{
-		birdx=W/4,birdy=H/4;
-		obstacle1x = W,length1=0;
-		obstacle2x = W+300,length2=0;
+		birdx=W/4,birdy=H/4;bspeedy=-4	;
+		obstacle1x = 2*W,length1=0;
+		obstacle2x = obstacle1x+300,length2=0;
 		flag1=0,flag2=0;
 
 	}
