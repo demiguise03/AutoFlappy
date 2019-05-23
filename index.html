@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Auto Flappy</title>
+</head>
+<body>
+<canvas id ="myCanvas" width="600" height="400" style="border:1px solid #d3d3d3;"></canvas>
+<script type="text/javascript">
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+	
+	
+	var W=600;var H=400;
+
+	ctx.fillStyle = "#FFFF00";
+	ctx.fillRect(0,0,W,H);
+	
+	//intialize
+	var birdx=W/4,birdy=H/4,birdh=50,birdw=50,bspeedy=-2,gravity=0.2;//bird specifications
+
+	var obstaclew=100,ospeedx=-1,o1initpos=600,o2initpos=900,gap=150;
+
+	var obstacle1x = o1initpos,length1=0;
+
+	var obstacle2x = o2initpos,length2=0;
+
+	var flag1=0,flag2=0;
+	function controller(event)
+	{
+		if(event.keyCode == 32)
+			bspeedy=-2;
+	}
+	function loop()
+	{
+
+		if(flag1==0)
+		{
+			length1 = Math.random()*H/4+H/4;
+			flag1=1;
+		}
+		if(obstacle2x == o2initpos)
+		{
+			length2 = Math.random()*H/4+H/4;
+			flag2=1;
+
+		}	
+		//draw background
+		ctx.fillStyle ="#ffff00";
+		ctx.fillRect(0,0,W,H);
+
+		//draw bird
+		ctx.fillStyle ="#ff0000";
+		ctx.fillRect(birdx,birdy,birdw,birdh);
+
+		//draw obstacle 1
+		ctx.fillStyle = "#ff0000";
+		ctx.fillRect(obstacle1x,0,obstaclew,length1);
+		ctx.fillRect(obstacle1x,length1+gap,obstaclew,H-length1-gap);
+		
+
+		//draw obstacle 2
+		ctx.fillStyle = "#ff0000";
+		ctx.fillRect(obstacle2x,0,obstaclew,length2);
+		ctx.fillRect(obstacle2x,length2+gap,obstaclew,H-length2-gap);
+		
+		if(obstacle1x == -obstaclew)
+		{
+			obstacle1x=obstacle2x+300;
+			flag1=0;
+		}
+		
+		if(obstacle2x == -obstaclew)
+		{
+			obstacle2x=obstacle1x+300;
+			flag2=0;	
+		}
+
+
+		//update
+		birdy=birdy+bspeedy;
+		bspeedy=bspeedy+gravity;
+		obstacle1x+=ospeedx;
+
+		window.requestAnimationFrame(loop);
+	}
+
+	window.addEventListener("keydown",controller);
+
+	window.requestAnimationFrame(loop);
+	</script>
+</body>
+
+</html>
