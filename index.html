@@ -4,43 +4,78 @@
 	<title>Auto Flappy</title>
 </head>
 <body>
-<canvas id ="myCanvas" width="500" height="400" style="border:1px solid #d3d3d3;"></canvas>
+<canvas id ="myCanvas" width="500" height="600" style="border:1px solid #d3d3d3;"></canvas>
 <script type="text/javascript">
 	var c = document.getElementById("myCanvas");
 	var ctx = c.getContext("2d");
 	
 	
-	var W=500;var H=400;
+	var W=500;var H=600;
 
 	ctx.fillStyle = "#FFFF00";
 	ctx.fillRect(0,0,W,H);
 	
 	//intialize
-	var birdx=W/4,birdy=H/4,birdh=50,birdw=50,bspeedy=-2,gravity=0.2;//bird specifications
+	var birdx=W/4,birdy=H/4,birdh=50,birdw=50,bspeedy=-7,gravity=0.4;//bird specifications
 
-	var obstaclew=100,ospeedx=-1,o1initpos=W,o2initpos=W+300,gap=150;
+	var obstaclew=100,ospeedx=-5,gap=150;
 
-	var obstacle1x = o1initpos,length1=0;
+	var obstacle1x = W,length1=0;
 
-	var obstacle2x = o2initpos,length2=0;
+	var obstacle2x = W+300,length2=0;
 
 	var flag1=0,flag2=0;
+	var length=200;
 	function controller(event)
 	{
 		if(event.keyCode == 32)
-			bspeedy=-2;
+			bspeedy=-8;
+	}
+	function collision()
+	{
+		var x=birdx+birdw;
+		var y=birdy+birdh;
+		if(y>=600 || birdy<=0)
+			return 1;
+		else if(x>=obstacle1x && birdy<= length1 && x<=(obstacle1x+obstaclew))
+			return 1;
+		else if(x>=obstacle2x && birdy<= length2 && x<=(obstacle2x+obstaclew))
+			return 1;
+		else if(birdx>=obstacle1x && birdy<= length1 && birdx<=(obstacle1x+obstaclew))
+			return 1;
+		else if(birdx>=obstacle2x && birdy<= length2 && birdx<=(obstacle2x+obstaclew))
+			return 1;
+		else if(x>=obstacle1x && x<=(obstacle1x+obstaclew) && y>=(length1+gap))
+			return 1;
+		else if(x>=obstacle2x && x<=(obstacle2x+obstaclew) && y>=(length2+gap))
+			return 1;
+		else if(birdx>=obstacle1x && birdx<=(obstacle1x+obstaclew) && y>=(length1+gap))
+			return 1;
+		else if(birdx>=obstacle2x && birdx<=(obstacle2x+obstaclew) && y>=(length2+gap))
+			return 1;
+		
+		return 0;
+
+	}
+	function gameover()
+	{
+		birdx=W/4,birdy=H/4;
+		obstacle1x = W,length1=0;
+		obstacle2x = W+300,length2=0;
+		flag1=0,flag2=0;
+
 	}
 	function loop()
 	{
 
 		if(flag1==0)
 		{
-			length1 = Math.random()*H/4+H/4;
+			length1 = Math.random()*length+H/4;
 			flag1=1;
 		}
-		if(obstacle2x == o2initpos)
+		if(flag2==0)
 		{
-			length2 = Math.random()*H/4+H/4;
+			length2 = Math.random()*length+H/4;
 			flag2=1;
 
 		}	
@@ -74,8 +109,9 @@
 			obstacle2x=obstacle1x+300;
 			flag2=0;	
 		}
-
-
+		//check for collisions
+		if(collision() == 1)
+			gameover();
 		//update
 		birdy=birdy+bspeedy;
 		bspeedy=bspeedy+gravity;
