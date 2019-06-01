@@ -12,7 +12,7 @@
 	
 	var W=500;var H=600;
 
-	ctx.fillStyle = "#FFFF00";
+	ctx.fillStyle = "#800080";
 	ctx.fillRect(0,0,W,H);
 	
 	//intialize
@@ -80,21 +80,21 @@
 
 		}	
 		//draw background
-		ctx.fillStyle ="#ffff00";
+		ctx.fillStyle ="#800080";
 		ctx.fillRect(0,0,W,H);
 
 		//draw bird
-		ctx.fillStyle ="#ff0000";
+		ctx.fillStyle ="#E6E6FA";
 		ctx.fillRect(birdx,birdy,birdw,birdh);
 
 		//draw obstacle 1
-		ctx.fillStyle = "#ff0000";
+		ctx.fillStyle = "#EE82EE";
 		ctx.fillRect(obstacle1x,0,obstaclew,length1);
 		ctx.fillRect(obstacle1x,length1+gap,obstaclew,H-length1-gap);
 		
 
 		//draw obstacle 2
-		ctx.fillStyle = "#ff0000";
+		ctx.fillStyle = "#EE82EE";
 		ctx.fillRect(obstacle2x,0,obstaclew,length2);
 		ctx.fillRect(obstacle2x,length2+gap,obstaclew,H-length2-gap);
 		
